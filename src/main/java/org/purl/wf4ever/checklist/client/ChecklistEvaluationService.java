@@ -25,14 +25,20 @@ public class ChecklistEvaluationService implements Serializable {
     /** Logger. */
     private static final Logger LOG = Logger.getLogger(ChecklistEvaluationService.class);
 
-    private String uriTemplate;
+    /** URI of the minim model. */
     private URI minimModelUri;
 
     /** web client. */
     private transient Client client;
+
+    /** URI template for the checklist service as string. */
+    @SuppressWarnings("unused")
     private String checklistString;
+
+    /** URI template for the traffic light service as string. */
     private String trafficlightJsonString;
 
+    /** checklist service URI. */
     private URI serviceUri;
 
 
