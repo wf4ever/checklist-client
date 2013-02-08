@@ -184,7 +184,7 @@ public class EvaluationResult implements Serializable {
                 score++;
             }
         }
-        return score * 100 / checklistItems.size();
+        return (int) Math.round((double) score * 100 / checklistItems.size());
     }
 
 }

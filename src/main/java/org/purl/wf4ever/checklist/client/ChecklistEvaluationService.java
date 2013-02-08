@@ -42,6 +42,14 @@ public class ChecklistEvaluationService implements Serializable {
     private URI serviceUri;
 
 
+    /**
+     * Constructor.
+     * 
+     * @param serviceUri
+     *            URI of the service
+     * @param minimModelUri
+     *            URI of the minim model
+     */
     public ChecklistEvaluationService(URI serviceUri, URI minimModelUri) {
         this.serviceUri = serviceUri;
         this.minimModelUri = minimModelUri;
@@ -73,6 +81,15 @@ public class ChecklistEvaluationService implements Serializable {
     }
 
 
+    /**
+     * Run the checklist service for an RO and a purpose defined in the minim model.
+     * 
+     * @param researchObjectUri
+     *            RO URI
+     * @param purpose
+     *            a purpose, from the minim model
+     * @return a result parsed from the JSON response of the service
+     */
     public EvaluationResult evaluate(URI researchObjectUri, String purpose) {
         UriTemplate template = UriTemplate.fromTemplate(trafficlightJsonString.startsWith("/") ? trafficlightJsonString
                 .substring(1) : trafficlightJsonString);
