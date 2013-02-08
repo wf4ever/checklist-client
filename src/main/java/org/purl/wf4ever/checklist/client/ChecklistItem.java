@@ -57,7 +57,7 @@ public class ChecklistItem implements Serializable {
     }
 
 
-    @XmlElement(name = "itemsatisifed")
+    @XmlElement(name = "itemsatisfied")
     public boolean isItemSatisfied() {
         return itemSatisfied;
     }

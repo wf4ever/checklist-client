@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 public class EvaluationResult implements Serializable {
@@ -167,6 +168,23 @@ public class EvaluationResult implements Serializable {
 
     public void setChecklistItems(List<ChecklistItem> checklistItems) {
         this.checklistItems = checklistItems;
+    }
+
+
+    /**
+     * Return a score as a percentage of all checklist items that are satisfied.
+     * 
+     * @return a value between 0 (worst) and 100 (best)
+     */
+    @XmlTransient
+    public int getEvaluationScore() {
+        int score = 0;
+        for (ChecklistItem item : checklistItems) {
+            if (item.isItemSatisfied()) {
+                score++;
+            }
+        }
+        return score * 100 / checklistItems.size();
     }
 
 }

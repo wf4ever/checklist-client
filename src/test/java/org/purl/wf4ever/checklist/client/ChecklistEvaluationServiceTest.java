@@ -28,5 +28,6 @@ public class ChecklistEvaluationServiceTest {
         String purpose = "ready-to-release";
         EvaluationResult result = service.evaluate(roUri, purpose);
         Assert.assertNotNull(result);
+        Assert.assertEquals(100, result.getEvaluationScore());
     }
 }
