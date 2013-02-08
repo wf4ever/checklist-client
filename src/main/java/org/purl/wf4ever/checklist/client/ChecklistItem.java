@@ -21,7 +21,7 @@ public class ChecklistItem implements Serializable {
 
     private boolean itemSatisfied;
 
-    private List<String> evalResultClasses;
+    private List<String> itemClasses;
 
 
     @XmlElement(name = "itemuri")
@@ -68,14 +68,14 @@ public class ChecklistItem implements Serializable {
     }
 
 
-    @XmlElement(name = "evalresultclass")
+    @XmlElement(name = "itemclass")
     public List<String> getEvalResultClasses() {
-        return evalResultClasses;
+        return itemClasses;
     }
 
 
     public void setEvalResultClasses(List<String> evalResultClasses) {
-        this.evalResultClasses = evalResultClasses;
+        this.itemClasses = evalResultClasses;
     }
 
 }

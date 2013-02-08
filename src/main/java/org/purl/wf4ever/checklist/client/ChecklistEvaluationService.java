@@ -4,10 +4,13 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URI;
 
+import javax.ws.rs.core.MediaType;
+
 import org.apache.log4j.Logger;
 import org.openrdf.rio.RDFFormat;
 import org.purl.wf4ever.checklist.client.vocabulary.ROE;
 
+import com.damnhandy.uri.template.UriTemplate;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -30,8 +33,11 @@ public class ChecklistEvaluationService implements Serializable {
     private String checklistString;
     private String trafficlightJsonString;
 
+    private URI serviceUri;
+
 
     public ChecklistEvaluationService(URI serviceUri, URI minimModelUri) {
+        this.serviceUri = serviceUri;
         this.minimModelUri = minimModelUri;
         try {
             InputStream serviceDesc = getClient().resource(serviceUri).accept(RDFFormat.RDFXML.getDefaultMIMEType())
@@ -62,6 +68,13 @@ public class ChecklistEvaluationService implements Serializable {
 
 
     public EvaluationResult evaluate(URI researchObjectUri, String purpose) {
-        return null;
+        UriTemplate template = UriTemplate.fromTemplate(trafficlightJsonString.startsWith("/") ? trafficlightJsonString
+                .substring(1) : trafficlightJsonString);
+        //FIXME can we get these params dynamically?
+        template.set("RO", researchObjectUri.toString());
+        template.set("minim", minimModelUri.toString());
+        template.set("purpose", purpose);
+        URI requestUri = serviceUri.resolve(template.expand());
+        return getClient().resource(requestUri).accept(MediaType.APPLICATION_JSON_TYPE).get(EvaluationResult.class);
     }
 }

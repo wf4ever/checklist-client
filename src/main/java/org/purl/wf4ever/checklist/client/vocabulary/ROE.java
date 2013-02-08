@@ -4,7 +4,6 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.util.FileManager;
 
 /**
  * RO evaluation ontology.
@@ -18,8 +17,7 @@ public final class ROE {
     public static final String NAMESPACE = "http://purl.org/ro/service/evaluate/";
 
     /** ontology model. */
-    public static final OntModel ONT_MODEL = ModelFactory.createOntologyModel(new OntModelSpec(OntModelSpec.OWL_MEM),
-        FileManager.get().loadModel(NAMESPACE));
+    public static final OntModel ONT_MODEL = ModelFactory.createOntologyModel(new OntModelSpec(OntModelSpec.OWL_MEM));
 
     /** roe:checklist. */
     public static final Property checklist = ONT_MODEL.getProperty(NAMESPACE + "checklist");
