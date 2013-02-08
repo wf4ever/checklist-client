@@ -38,6 +38,9 @@ public class ChecklistEvaluationService implements Serializable {
     /** URI template for the traffic light service as string. */
     private String trafficlightJsonString;
 
+    /** URI template for the traffic light service as string. */
+    private String trafficlightHtmlString;
+
     /** checklist service URI. */
     private URI serviceUri;
 
@@ -61,6 +64,8 @@ public class ChecklistEvaluationService implements Serializable {
             Resource service = model.getResource(serviceUri.toString());
             this.checklistString = service.listProperties(ROE.checklist).next().getObject().asLiteral().getString();
             this.trafficlightJsonString = service.listProperties(ROE.trafficlightJson).next().getObject().asLiteral()
+                    .getString();
+            this.trafficlightHtmlString = service.listProperties(ROE.trafficlightHtml).next().getObject().asLiteral()
                     .getString();
         } catch (JenaException e) {
             LOG.warn("Could not initialize the checklist evaluation service client: " + e.getLocalizedMessage());
@@ -98,6 +103,19 @@ public class ChecklistEvaluationService implements Serializable {
         template.set("minim", minimModelUri.toString());
         template.set("purpose", purpose);
         URI requestUri = serviceUri.resolve(template.expand());
-        return getClient().resource(requestUri).accept(MediaType.APPLICATION_JSON_TYPE).get(EvaluationResult.class);
+        EvaluationResult result = getClient().resource(requestUri).accept(MediaType.APPLICATION_JSON_TYPE)
+                .get(EvaluationResult.class);
+        result.setJsonRequestUri(requestUri);
+
+        UriTemplate htmlTemplate = UriTemplate
+                .fromTemplate(trafficlightHtmlString.startsWith("/") ? trafficlightHtmlString.substring(1)
+                        : trafficlightHtmlString);
+        //FIXME can we get these params dynamically?
+        htmlTemplate.set("RO", researchObjectUri.toString());
+        htmlTemplate.set("minim", minimModelUri.toString());
+        htmlTemplate.set("purpose", purpose);
+        URI htmlRequestUri = serviceUri.resolve(htmlTemplate.expand());
+        result.setHtmlRequestUri(htmlRequestUri);
+        return result;
     }
 }

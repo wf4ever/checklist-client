@@ -14,6 +14,12 @@ public class EvaluationResult implements Serializable {
     /** id. */
     private static final long serialVersionUID = -4284772318903005226L;
 
+    /** The URI with which this result was generated. */
+    private URI jsonRequestUri;
+
+    /** The URI with which an HTML version of this result can be generated. */
+    private URI htmlRequestUri;
+
     private URI roUri;
 
     private String roId;
@@ -185,6 +191,28 @@ public class EvaluationResult implements Serializable {
             }
         }
         return (int) Math.round((double) score * 100 / checklistItems.size());
+    }
+
+
+    @XmlTransient
+    public URI getJsonRequestUri() {
+        return jsonRequestUri;
+    }
+
+
+    public void setJsonRequestUri(URI checklistRequestUri) {
+        this.jsonRequestUri = checklistRequestUri;
+    }
+
+
+    @XmlTransient
+    public URI getHtmlRequestUri() {
+        return htmlRequestUri;
+    }
+
+
+    public void setHtmlRequestUri(URI htmlRequestUri) {
+        this.htmlRequestUri = htmlRequestUri;
     }
 
 }

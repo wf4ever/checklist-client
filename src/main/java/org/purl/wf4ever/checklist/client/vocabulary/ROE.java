@@ -25,6 +25,9 @@ public final class ROE {
     /** roe:trafficlight_json. */
     public static final Property trafficlightJson = ONT_MODEL.getProperty(NAMESPACE + "trafficlight_json");
 
+    /** roe:trafficlight_html. */
+    public static final Property trafficlightHtml = ONT_MODEL.getProperty(NAMESPACE + "trafficlight_html");
+
 
     /**
      * Constructor.
