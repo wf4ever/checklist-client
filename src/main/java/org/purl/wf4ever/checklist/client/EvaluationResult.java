@@ -184,6 +184,9 @@ public class EvaluationResult implements Serializable {
      */
     @XmlTransient
     public int getEvaluationScore() {
+        if (checklistItems == null || checklistItems.isEmpty()) {
+            return 0;
+        }
         int score = 0;
         for (ChecklistItem item : checklistItems) {
             if (item.isItemSatisfied()) {
