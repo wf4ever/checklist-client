@@ -121,4 +121,27 @@ public class ChecklistEvaluationService implements Serializable {
         return result;
     }
 
+
+    /**
+     * Run the checklist service for an RO and a purpose defined in the minim model.
+     * 
+     * @param researchObjectUri
+     *            RO URI
+     * @param minimModelUri
+     *            URI of the minim model
+     * @param purpose
+     *            a purpose, from the minim model
+     * @return a result as HTML
+     */
+    public String evaluateHtml(URI researchObjectUri, URI minimModelUri, String purpose) {
+        UriTemplate htmlTemplate = UriTemplate
+                .fromTemplate(trafficlightHtmlString.startsWith("/") ? trafficlightHtmlString.substring(1)
+                        : trafficlightHtmlString);
+        //FIXME can we get these params dynamically?
+        htmlTemplate.set("RO", researchObjectUri.toString());
+        htmlTemplate.set("minim", minimModelUri.toString());
+        htmlTemplate.set("purpose", purpose);
+        URI htmlRequestUri = serviceUri.resolve(htmlTemplate.expand());
+        return getClient().resource(htmlRequestUri).accept(MediaType.TEXT_HTML_TYPE).get(String.class);
+    }
 }
