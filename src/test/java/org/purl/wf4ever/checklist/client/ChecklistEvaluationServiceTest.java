@@ -21,7 +21,7 @@ public class ChecklistEvaluationServiceTest {
 
     /** URI of the minim model, used in Y2 review. */
     private static final URI MINIM_URI = URI
-            .create("http://sandbox.wf4ever-project.org/rodl/ROs/Y2Demo-test/workflow-experiment-checklist.rdf");
+            .create("http://rawgithub.com/wf4ever/ro-catalogue/master/v0.1/Timbus-demo-test/simpleRO-checklist.rdf");
 
     /** Purpose of the evaluation. */
     private static final String PURPOSE = "ready-to-release";
@@ -58,14 +58,6 @@ public class ChecklistEvaluationServiceTest {
     public final void testGetEvaluationScore() {
         URI roUri = URI.create("http://sandbox.wf4ever-project.org/rodl/ROs/Pack387/");
         EvaluationResult result = service.evaluate(roUri, PURPOSE);
-        Assert.assertEquals(100, result.getEvaluationScore());
-
-        roUri = URI.create("http://sandbox.wf4ever-project.org/rodl/ROs/Y2DemoStep13/");
-        result = service.evaluate(roUri, PURPOSE);
-        Assert.assertEquals(67, result.getEvaluationScore());
-
-        roUri = URI.create("http://sandbox.wf4ever-project.org/rodl/ROs/Y2DemoStep4/");
-        result = service.evaluate(roUri, PURPOSE);
-        Assert.assertEquals(17, result.getEvaluationScore());
+        Assert.assertEquals(88, result.getEvaluationScore());
     }
 }
