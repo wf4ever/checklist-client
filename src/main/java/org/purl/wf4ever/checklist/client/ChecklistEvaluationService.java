@@ -17,6 +17,12 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.shared.JenaException;
 import com.sun.jersey.api.client.Client;
 
+/**
+ * The client for the checklist evaluation service. Uses the 'traffic lights' JSON interface.
+ * 
+ * @author piotrekhol
+ * 
+ */
 public class ChecklistEvaluationService implements Serializable {
 
     /** id. */
@@ -117,5 +123,15 @@ public class ChecklistEvaluationService implements Serializable {
         URI htmlRequestUri = serviceUri.resolve(htmlTemplate.expand());
         result.setHtmlRequestUri(htmlRequestUri);
         return result;
+    }
+
+
+    public URI getMinimModelUri() {
+        return minimModelUri;
+    }
+
+
+    public void setMinimModelUri(URI minimModelUri) {
+        this.minimModelUri = minimModelUri;
     }
 }

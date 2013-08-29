@@ -8,6 +8,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ * JSON representation of the entire evaluation result.
+ * 
+ * @author piotrekhol
+ * 
+ */
 @XmlRootElement
 public class EvaluationResult implements Serializable {
 

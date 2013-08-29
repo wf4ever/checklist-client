@@ -7,6 +7,12 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * JSON representation of a single minim model requirement (item).
+ * 
+ * @author piotrekhol
+ * 
+ */
 @XmlRootElement
 public class ChecklistItem implements Serializable {
 
