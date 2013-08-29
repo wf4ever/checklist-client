@@ -35,7 +35,7 @@ public class ChecklistEvaluationServiceTest {
      */
     @Before
     public final void setUp() {
-        this.service = new ChecklistEvaluationService(SERVICE_URI, MINIM_URI);
+        this.service = new ChecklistEvaluationService(SERVICE_URI);
     }
 
 
@@ -45,7 +45,7 @@ public class ChecklistEvaluationServiceTest {
     @Test
     public final void testEvaluate() {
         URI roUri = URI.create("http://sandbox.wf4ever-project.org/rodl/ROs/Pack387/");
-        EvaluationResult result = service.evaluate(roUri, PURPOSE);
+        EvaluationResult result = service.evaluate(roUri, MINIM_URI, PURPOSE);
         Assert.assertNotNull(result);
         //TODO add field verification
     }
@@ -57,7 +57,7 @@ public class ChecklistEvaluationServiceTest {
     @Test
     public final void testGetEvaluationScore() {
         URI roUri = URI.create("http://sandbox.wf4ever-project.org/rodl/ROs/Pack387/");
-        EvaluationResult result = service.evaluate(roUri, PURPOSE);
+        EvaluationResult result = service.evaluate(roUri, MINIM_URI, PURPOSE);
         Assert.assertEquals(88, result.getEvaluationScore());
     }
 }

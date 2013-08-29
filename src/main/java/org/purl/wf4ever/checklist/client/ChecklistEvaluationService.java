@@ -31,9 +31,6 @@ public class ChecklistEvaluationService implements Serializable {
     /** Logger. */
     private static final Logger LOG = Logger.getLogger(ChecklistEvaluationService.class);
 
-    /** URI of the minim model. */
-    private URI minimModelUri;
-
     /** web client. */
     private transient Client client;
 
@@ -56,12 +53,9 @@ public class ChecklistEvaluationService implements Serializable {
      * 
      * @param serviceUri
      *            URI of the service
-     * @param minimModelUri
-     *            URI of the minim model
      */
-    public ChecklistEvaluationService(URI serviceUri, URI minimModelUri) {
+    public ChecklistEvaluationService(URI serviceUri) {
         this.serviceUri = serviceUri;
-        this.minimModelUri = minimModelUri;
         try {
             InputStream serviceDesc = getClient().resource(serviceUri).accept(RDFFormat.RDFXML.getDefaultMIMEType())
                     .get(InputStream.class);
@@ -97,11 +91,13 @@ public class ChecklistEvaluationService implements Serializable {
      * 
      * @param researchObjectUri
      *            RO URI
+     * @param minimModelUri
+     *            URI of the minim model
      * @param purpose
      *            a purpose, from the minim model
      * @return a result parsed from the JSON response of the service
      */
-    public EvaluationResult evaluate(URI researchObjectUri, String purpose) {
+    public EvaluationResult evaluate(URI researchObjectUri, URI minimModelUri, String purpose) {
         UriTemplate template = UriTemplate.fromTemplate(trafficlightJsonString.startsWith("/") ? trafficlightJsonString
                 .substring(1) : trafficlightJsonString);
         //FIXME can we get these params dynamically?
@@ -125,13 +121,4 @@ public class ChecklistEvaluationService implements Serializable {
         return result;
     }
 
-
-    public URI getMinimModelUri() {
-        return minimModelUri;
-    }
-
-
-    public void setMinimModelUri(URI minimModelUri) {
-        this.minimModelUri = minimModelUri;
-    }
 }
